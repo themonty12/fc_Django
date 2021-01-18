@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.hashers import check_password, make_password
 from .models import Fcuser
 
 class RegisterForm(forms.Form):
@@ -34,6 +35,37 @@ class RegisterForm(forms.Form):
             else:
                 fcuser = Fcuser(
                     email = email,
-                    password = password
+                    password = make_password(password)
                 )
                 fcuser.save()
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(
+        error_messages={
+            'required' : '이메일을 입력해주세요'
+        },
+        max_length=64, label='이메일'
+    )
+    password = forms.CharField(
+        error_messages={
+            'required' : '비밀번호를 입력해주세요.'
+        },
+        widget=forms.PasswordInput, label='비밀번호'
+    )
+
+    def clean(self):
+        clean_data = super().clean()
+        email = clean_data.get('email')
+        password = clean_data.get('password')
+
+        if email and password:
+            try:                
+                fcuser = Fcuser.objects.get(email=email)
+            except Fcuser.DoesNotExist:
+                self.add_error('eamil', '아이디가 없습니다.')
+                return
+                
+            if not check_password(password, fcuser.password):
+                self.add_error('password', '비밀번호를 틀렸습니다.')
+            else:
+                self.email = fcuser.email

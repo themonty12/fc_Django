@@ -7,10 +7,10 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='상품가격')
     description = models.TextField(verbose_name='상품설명')
     stuck = models.IntegerField(verbose_name='재고')
-    register_date = models.DateField(auto_now_add=True, verbose_name='등록날짜')
+    register_date = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
 
     def __str__(self):
-        return name
+        return self.name
 
     class Meta:
         db_table = 'Fastcampus_product'
