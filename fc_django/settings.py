@@ -30,7 +30,19 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+BATON = {
+    'SITE_HEADER' : '패스트캠퍼스 백오피스',
+    'SITE_TITLE' : '패스트캠퍼스 타이틀',
+    'INDEX_TITLE' : '패스트캠퍼스 관리자 페이지',
+    # 'SUPPORT_HREF' : 'https://fastcampus.co.kr',
+    'SUPPORT_HREF' : 'mailto:ljs@hogun.co.kr',
+    'COPYRIGHT' : 'copyright 2021',
+    'POWERED_BY' : '<a href="https://fastcampus.co.kr">Fastcampus</a>',
+    'MENU_TITLE' : '패스트캠퍼스',
+}
+
 INSTALLED_APPS = [
+    'baton',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +51,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'rest_framework',
-    'fcuser',
-    'order',
-    'product',
+    'fcuser.apps.FcuserConfig',
+    'order.apps.OrderConfig',
+    'product.apps.ProductConfig',
+    'baton.autodiscover',
 ]
 
 MIDDLEWARE = [
@@ -108,9 +121,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
