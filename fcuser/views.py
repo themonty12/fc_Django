@@ -8,6 +8,9 @@ from .models import Fcuser
 
 def index(request):
     return render(request, 'index.html', {'email': request.session.get('user')})
+    
+def infraworks(request):
+    return render(request, 'ht.html')
 
 class RegisterView(FormView):
     template_name = 'register.html'
