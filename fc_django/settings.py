@@ -41,6 +41,37 @@ BATON = {
     'COPYRIGHT' : 'copyright 2021',
     'POWERED_BY' : '<a href="https://fastcampus.co.kr">Fastcampus</a>',
     'MENU_TITLE' : '패스트캠퍼스',
+    'MENU': (
+        { 'type': 'title', 'label': 'main', 'apps': ('fcuser', 'order', 'product') },
+        {
+            'type': 'app',
+            'name': 'fcuser',
+            'label': '사용자',
+            'icon': 'fa fa-lock',
+            'models': (
+                {
+                    'name': 'fcuser',
+                    'label': '사용자'
+                },                
+            )
+        },        
+        { 'type': 'free', 'label': '주문', 'default_open' : True, 'children': [
+            { 'type': 'model', 'label': '주문', 'name': 'order', 'app': 'order' },
+            { 'type': 'free', 'label': '주문 날짜 뷰', 'url': '/admin/order/order/date_view/' },
+        ] },
+        {
+            'type': 'app',
+            'name': 'product',
+            'label': '상품',            
+            'models': (
+                {
+                    'name': 'product',
+                    'label': '상품'
+                },                
+            )
+        },        
+        { 'type': 'free', 'label': '매뉴얼', 'url': '/admin/manual',  },        
+    ),
 }
 
 INSTALLED_APPS = [

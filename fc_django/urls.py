@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.template.response import TemplateResponse
 from django.urls import path, include, re_path
 from fcuser.views import index, RegisterView, LoginView, logout, infraworks
 from product.views import (
@@ -22,6 +23,13 @@ from product.views import (
 from order.views import OrderCreate, OrderList
 from django.views.generic import TemplateView
 
+origin_index = admin.site.index
+
+def fastcampus_index(request, extra_context=None):
+    extra_context = {'test' : 'text'}
+    return origin_index(request, extra_context)
+
+admin.site.index = fastcampus_index
 
 urlpatterns = [    
     path('admin/manual/', TemplateView.as_view(template_name='admin/manual.html', extra_context={'title' : '메뉴얼'})),
